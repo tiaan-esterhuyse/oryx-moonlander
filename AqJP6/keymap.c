@@ -18,16 +18,16 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(15, KC_F1)
-#define DUAL_FUNC_1 LT(8, KC_2)
-#define DUAL_FUNC_2 LT(1, KC_K)
-#define DUAL_FUNC_3 LT(5, KC_F3)
-#define DUAL_FUNC_4 LT(12, KC_F6)
-#define DUAL_FUNC_5 LT(4, KC_F10)
-#define DUAL_FUNC_6 LT(14, KC_F9)
-#define DUAL_FUNC_7 LT(13, KC_F18)
-#define DUAL_FUNC_8 LT(2, KC_Q)
-#define DUAL_FUNC_9 LT(10, KC_M)
+#define DUAL_FUNC_0 LT(12, KC_7)
+#define DUAL_FUNC_1 LT(2, KC_F9)
+#define DUAL_FUNC_2 LT(11, KC_F14)
+#define DUAL_FUNC_3 LT(8, KC_E)
+#define DUAL_FUNC_4 LT(1, KC_1)
+#define DUAL_FUNC_5 LT(15, KC_B)
+#define DUAL_FUNC_6 LT(2, KC_F15)
+#define DUAL_FUNC_7 LT(10, KC_F1)
+#define DUAL_FUNC_8 LT(8, KC_D)
+#define DUAL_FUNC_9 LT(10, KC_1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
@@ -64,28 +64,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
-  'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
-  'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
-  'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
-  'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
-  'L', 'L', 'L', 'L', 'L', '*', '*', 'R', 'R', 'R', 'R', 'R',
-                 '*', '*', '*', '*', '*', '*'
-);
 
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case DUAL_FUNC_0:
-            return TAPPING_TERM -50;
+            return TAPPING_TERM -25;
         case KC_G:
-            return TAPPING_TERM -50;
+            return TAPPING_TERM -25;
         case DUAL_FUNC_2:
-            return TAPPING_TERM -50;
+            return TAPPING_TERM -25;
         case DUAL_FUNC_3:
-            return TAPPING_TERM -50;
+            return TAPPING_TERM -25;
         case KC_H:
-            return TAPPING_TERM -50;
+            return TAPPING_TERM -25;
         default:
             return TAPPING_TERM;
     }
