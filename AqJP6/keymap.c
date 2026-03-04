@@ -18,16 +18,16 @@ enum tap_dance_codes {
   DANCE_1,
 };
 
-#define DUAL_FUNC_0 LT(12, KC_7)
-#define DUAL_FUNC_1 LT(2, KC_F9)
-#define DUAL_FUNC_2 LT(11, KC_F14)
-#define DUAL_FUNC_3 LT(8, KC_E)
-#define DUAL_FUNC_4 LT(1, KC_1)
-#define DUAL_FUNC_5 LT(15, KC_B)
-#define DUAL_FUNC_6 LT(2, KC_F15)
-#define DUAL_FUNC_7 LT(10, KC_F1)
-#define DUAL_FUNC_8 LT(8, KC_D)
-#define DUAL_FUNC_9 LT(10, KC_1)
+#define DUAL_FUNC_0 LT(10, KC_8)
+#define DUAL_FUNC_1 LT(10, KC_F19)
+#define DUAL_FUNC_2 LT(5, KC_F2)
+#define DUAL_FUNC_3 LT(10, KC_L)
+#define DUAL_FUNC_4 LT(13, KC_F4)
+#define DUAL_FUNC_5 LT(12, KC_G)
+#define DUAL_FUNC_6 LT(4, KC_G)
+#define DUAL_FUNC_7 LT(5, KC_F19)
+#define DUAL_FUNC_8 LT(5, KC_F8)
+#define DUAL_FUNC_9 LT(15, KC_D)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
@@ -69,15 +69,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case DUAL_FUNC_0:
-            return TAPPING_TERM -25;
+            return TAPPING_TERM -50;
         case KC_G:
-            return TAPPING_TERM -25;
+            return TAPPING_TERM -50;
         case DUAL_FUNC_2:
-            return TAPPING_TERM -25;
+            return TAPPING_TERM -50;
         case DUAL_FUNC_3:
-            return TAPPING_TERM -25;
+            return TAPPING_TERM -50;
         case KC_H:
-            return TAPPING_TERM -25;
+            return TAPPING_TERM -50;
         default:
             return TAPPING_TERM;
     }
