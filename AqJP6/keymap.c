@@ -9,9 +9,74 @@ enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
   ST_MACRO_0,
   ST_MACRO_1,
+
+  CC_PWD1,
+  CC_PWD2,
+  CC_PWD3,
+  CC_PWD4,
+  CC_PWD5,
+  CC_PWD6,
+  CC_PWD7,
+  CC_PWD8,
+  CC_PWD9
 };
 
 
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+  //&ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, S(KC_DEL)),
+  &ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_LBRC),
+  &ko_make_basic(MOD_MASK_SHIFT, KC_RCBR, KC_RBRC),
+  &ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_LABK),
+  &ko_make_basic(MOD_MASK_SHIFT, KC_RPRN, KC_RABK),
+
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_1, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_2, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_3, KC_LCBR),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_4, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_7, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_8, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_9, KC_RABK),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_0, KC_RABK),
+
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_COM, KC_SCLN),
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN),
+
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_COLN),
+
+  NULL
+};
+const uint16_t key_overrides_count = 4; // 18
+
+#define H(kc)  HYPR(kc)
+#define M(kc)  MEH(kc)
+#define L1(kc) LT(1, kc)
+#define L2(kc) LT(2, kc)
+#define L3(kc) LT(3, kc)
+
+#define CH(kc) MT(MOD_LCTL, kc)
+#define AH(kc) MT(MOD_LALT, kc)
+#define SH(kc) MT(MOD_LSFT, kc)
+#define GH(kc) MT(MOD_LGUI, kc)
+#define HH(kc) MT(MOD_HPR,  kc)
+#define MH(kc) MT(MOD_MEH,  kc)
+
+// Left-hand home row mods
+#define HRM_A LGUI_T(KC_A)
+#define HRM_S LALT_T(KC_S)
+#define HRM_D LSFT_T(KC_D)
+#define HRM_F LCTL_T(KC_F)
+
+// Right-hand home row mods
+#define HRM_J RCTL_T(KC_J)
+#define HRM_K RSFT_T(KC_K)
+#define HRM_L LALT_T(KC_L)
+#define HRM_SCLN RGUI_T(KC_SCLN)
+
+#define KC_WHLU KC_MS_WH_UP
+#define KC_WHLD KC_MS_WH_DOWN
 
 enum tap_dance_codes {
   DANCE_0,
@@ -68,22 +133,74 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+const key_override_t* key_overrides_get_simple(uint16_t keycode) {
+  for (uint16_t i = key_overrides_count; i-- > 0;) {
+    const key_override_t *entry = key_overrides[i];
+
+    // TODO: Add more checks to ensure it's a simple override
+
+    if (entry->trigger == keycode) {
+      return entry;
+    }
+  }
+
+  return NULL;
+}
+
+void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
+  const key_override_t *entry = key_overrides_get_simple(keycode);
+  if (entry == NULL) {
+    if (shifted) { add_weak_mods(MOD_BIT(KC_LSFT)); }
+    register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
+  } else {
+    register_code16((!shifted) ? entry->trigger : entry->replacement);
+  }
+}
+
+void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
+  const key_override_t *entry = key_overrides_get_simple(keycode);
+  if (entry == NULL) {
+    unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
+  } else {
+    unregister_code16((!shifted) ? entry->trigger : entry->replacement);
+  }
+}
+
+bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+  const key_override_t *entry = key_overrides_get_simple(keycode);
+  if (entry != NULL) {
+    return true;
+  }
+
+  switch(keycode) {
+    case AUTO_SHIFT_ALPHA:
+    case AUTO_SHIFT_NUMERIC:
+    case AUTO_SHIFT_SYMBOLS:
+    case KC_DEL:
+    case KC_ENT:
+    case KC_TAB:
+    case KC_F1 ... KC_F24:
+    case G(KC_1):
+    case G(KC_2):
+    case G(KC_3):
+    case G(KC_4):
+    case G(KC_5):
+    case G(KC_6):
+    case G(KC_7):
+    case G(KC_8):
+    case G(KC_9):
+    case G(KC_0):
+      return true;
+    default:
+      return false;
+  }
+}
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_LBRC:
-            return TAPPING_TERM -50;
-        case KC_G:
-            return TAPPING_TERM -50;
-        case KC_RBRC:
-            return TAPPING_TERM -50;
-        case KC_RPRN:
-            return TAPPING_TERM -50;
-        case KC_H:
-            return TAPPING_TERM -50;
-        default:
-            return TAPPING_TERM;
-    }
+  switch (keycode) {
+    default:
+        return TAPPING_TERM;
+  }
 }
 
 
