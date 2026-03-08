@@ -23,7 +23,7 @@ enum custom_keycodes {
 
 
 // This globally defines all key overrides to be used
-const key_override_t **key_overrides = (const key_override_t *[]){
+const key_override_t *key_overrides[] = {
   //&ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, S(KC_DEL)),
   &ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_LBRC),
   &ko_make_basic(MOD_MASK_SHIFT, KC_RCBR, KC_RBRC),
