@@ -173,7 +173,7 @@ bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
     case KC_DEL:
     case KC_ENT:
     case KC_TAB:
-    case KC_F1 ... KC_F24:
+    case KC_F1 ... KC_F12:
     case G(KC_1):
     case G(KC_2):
     case G(KC_3):
