@@ -44,9 +44,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
   // &ko_make_basic(MOD_MASK_SHIFT, KC_COM, KC_SCLN),
   // &ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLN),
 
-  // &ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_COLN),
-
-  NULL
+  // &ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_COLN), 
 };
 const uint16_t key_overrides_count = 4; // 18
 
