@@ -9,3 +9,5 @@
 
 #define QUICK_TAP_TERM 0
 #define QUICK_TAPPING_TERM 0
+
+#define RETRO_TAPPING
