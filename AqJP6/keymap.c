@@ -22,7 +22,6 @@ enum custom_keycodes {
 };
 
 
-
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
   //&ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, S(KC_DEL)),
@@ -48,6 +47,10 @@ const key_override_t *key_overrides[] = {
   // &ko_make_basic(MOD_MASK_SHIFT, KC_SLSH, KC_COLN), 
 };
 const uint16_t key_overrides_count = 4; // 18
+
+
+#define DUAL_FUNC_0 LT(15, KC_O)
+#define DUAL_FUNC_1 LT(5, KC_F11)
 
 #define H(kc)  HYPR(kc)
 #define M(kc)  MEH(kc)
@@ -77,8 +80,6 @@ const uint16_t key_overrides_count = 4; // 18
 #define KC_WHLU KC_MS_WH_UP
 #define KC_WHLD KC_MS_WH_DOWN
 
-#define DUAL_FUNC_0 LT(11, KC_A)
-#define DUAL_FUNC_1 LT(15, KC_Q)
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
